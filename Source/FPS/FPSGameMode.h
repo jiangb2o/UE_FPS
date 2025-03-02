@@ -13,6 +13,12 @@ class AFPSGameMode : public AGameModeBase
 
 public:
 	AFPSGameMode();
+
+protected:
+	virtual void Tick(float DeltaTime) override;
+	virtual void BeginPlay() override;
+
+
 };
 
 

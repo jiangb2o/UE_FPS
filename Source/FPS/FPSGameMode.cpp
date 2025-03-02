@@ -12,3 +12,13 @@ AFPSGameMode::AFPSGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 }
+
+void AFPSGameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void AFPSGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+}

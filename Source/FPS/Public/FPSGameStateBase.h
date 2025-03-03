@@ -14,18 +14,26 @@ class FPS_API AFPSGameStateBase : public AGameStateBase
 {
 	GENERATED_BODY()
 public:
+	AFPSGameStateBase();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float GameDuration;
+	
 	UFUNCTION(BlueprintCallable, Category = "GameState")
 	int32 GetScore() const;
 	UFUNCTION(BlueprintCallable, Category = "GameState")
 	void SetScore(int32 Value);
 	UFUNCTION(BlueprintCallable, Category = "GameState")
-	float GetTimePassed() const;
+	float GetRemainingTime() const;
 	UFUNCTION(BlueprintCallable, Category = "GameState")
-	void SetTimePassed(float Value);
+	void SetRemainingTime(float Value);
+
+	/** Get Values Set in Blueprint, Call in BeginPlay */
+	void InitValuesInBluePrint();
 
 private:
 	UPROPERTY(VisibleAnywhere)
-	int32 Score;
+	int32 Score;			// Player Get Score
 	UPROPERTY(VisibleAnywhere)
-	float TimePassed;
+	float RemainingTime;	// Time Remaining
 };

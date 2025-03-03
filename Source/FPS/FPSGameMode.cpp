@@ -11,14 +11,23 @@ AFPSGameMode::AFPSGameMode()
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClassFinder(TEXT("/Game/FirstPerson/Blueprints/BP_FirstPersonCharacter"));
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
-}
-
-void AFPSGameMode::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.TickInterval = 0.01f;
 }
 
 void AFPSGameMode::BeginPlay()
 {
 	Super::BeginPlay();
+	GameState = GetWorld()->GetGameState<AFPSGameStateBase>();
+	GameState->InitValuesInBluePrint();
+	UE_LOG(LogTemp, Warning, TEXT("In FPS Game Mode, FPSGameStateBase GameDuration: %.2f"), GameState->GetRemainingTime());
 }
+
+void AFPSGameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	float RemainingTime = GameState->GetRemainingTime();
+	GameState->SetRemainingTime(RemainingTime - DeltaTime);
+	UE_LOG(LogTemp, Warning, TEXT("Remaining Time: %.2f"), GameState->GetRemainingTime());
+}
+

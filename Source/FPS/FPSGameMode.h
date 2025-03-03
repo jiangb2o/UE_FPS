@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "FPSGameStateBase.h"
 #include "GameFramework/GameModeBase.h"
 #include "FPSGameMode.generated.h"
 
@@ -15,9 +16,11 @@ public:
 	AFPSGameMode();
 
 protected:
-	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
+private:
+	AFPSGameStateBase *GameState;
 
 };
 

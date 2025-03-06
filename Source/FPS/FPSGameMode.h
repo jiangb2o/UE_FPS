@@ -22,6 +22,8 @@ protected:
 private:
 	AFPSGameStateBase *GameState;
 
+	void GameOver();
+
 };
 
 

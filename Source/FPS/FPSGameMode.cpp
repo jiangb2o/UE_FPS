@@ -24,8 +24,30 @@ void AFPSGameMode::BeginPlay()
 void AFPSGameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	float RemainingTime = GameState->GetRemainingTime();
-	GameState->SetRemainingTime(RemainingTime - DeltaTime);
-	UE_LOG(LogTemp, Warning, TEXT("Remaining Time: %.2f"), GameState->GetRemainingTime());
+
+	if(float RemainingTime = GameState->GetRemainingTime(); RemainingTime > 0.0f)
+	{
+		RemainingTime -= DeltaTime;
+		GameState->SetRemainingTime(RemainingTime);
+		FString RemainingTimeMessage = FString::Printf(TEXT("Remaining Time: %.2f"), GameState->GetRemainingTime());
+		GEngine->AddOnScreenDebugMessage(1, 2, FColor::Blue, RemainingTimeMessage);
+		if(RemainingTime < 0)
+		{
+			GameOver();	
+		}
+	}
+}
+
+void AFPSGameMode::GameOver()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Game Over"));
+	// Pause Game
+	if(APlayerController* PlayerController = GetWorld()->GetFirstPlayerController())
+	{
+		SetPause(PlayerController);
+	}
+	// Show Game Over Score
+	FString ScoreMessage = FString::Printf(TEXT("Your Score: %d"), GameState->GetScore());
+	GEngine->AddOnScreenDebugMessage(-1, INFINITY, FColor::Red, ScoreMessage);
 }
 

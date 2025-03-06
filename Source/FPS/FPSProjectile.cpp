@@ -1,6 +1,8 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "FPSProjectile.h"
+
+#include "TargetCubeComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 
@@ -37,7 +39,10 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
+		if(UTargetCubeComponent* TargetCubeComponent = OtherActor->GetComponentByClass<UTargetCubeComponent>())
+		{
+			TargetCubeComponent->TakeHit();
+		}
 		Destroy();
 	}
 }

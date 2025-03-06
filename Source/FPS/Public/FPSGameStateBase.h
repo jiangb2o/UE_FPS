@@ -31,6 +31,9 @@ public:
 	/** Get Values Set in Blueprint, Call in BeginPlay */
 	void InitValuesInBluePrint();
 
+protected:
+	virtual void BeginPlay() override;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	int32 Score;			// Player Get Score

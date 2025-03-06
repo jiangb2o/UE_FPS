@@ -19,8 +19,6 @@ void AFPSGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	GameState = GetWorld()->GetGameState<AFPSGameStateBase>();
-	GameState->InitValuesInBluePrint();
-	UE_LOG(LogTemp, Warning, TEXT("In FPS Game Mode, FPSGameStateBase GameDuration: %.2f"), GameState->GetRemainingTime());
 }
 
 void AFPSGameMode::Tick(float DeltaTime)

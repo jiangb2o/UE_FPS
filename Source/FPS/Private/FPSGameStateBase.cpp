@@ -33,3 +33,9 @@ void AFPSGameStateBase::InitValuesInBluePrint()
 {
 	RemainingTime = GameDuration;
 }
+
+void AFPSGameStateBase::BeginPlay()
+{
+	Super::BeginPlay();
+	InitValuesInBluePrint();
+}

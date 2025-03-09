@@ -21,7 +21,10 @@ protected:
 
 private:
 	AFPSGameStateBase *GameState;
+	UPROPERTY(EditAnywhere)
+	int32 ImportantCubeCount;
 
+	void SetImportantCubeTarget();
 	void GameOver();
 
 };

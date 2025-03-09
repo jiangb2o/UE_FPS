@@ -2,6 +2,8 @@
 
 #include "FPSGameMode.h"
 #include "FPSCharacter.h"
+#include "TargetCubeComponent.h"
+#include "Runtime/Core/Tests/Containers/TestUtils.h"
 #include "UObject/ConstructorHelpers.h"
 
 AFPSGameMode::AFPSGameMode()
@@ -19,6 +21,7 @@ void AFPSGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	GameState = GetWorld()->GetGameState<AFPSGameStateBase>();
+	SetImportantCubeTarget();
 }
 
 void AFPSGameMode::Tick(float DeltaTime)
@@ -34,6 +37,43 @@ void AFPSGameMode::Tick(float DeltaTime)
 		if(RemainingTime < 0)
 		{
 			GameOver();	
+		}
+	}
+}
+
+void AFPSGameMode::SetImportantCubeTarget()
+{
+	UWorld* World = GetWorld();
+	if(!World) return;
+	
+	TArray<UTargetCubeComponent*> TargetCubeComponents;
+	for(TObjectIterator<UTargetCubeComponent> It; It; ++It)
+	{
+		if(It->GetWorld() == World)
+		{
+			TargetCubeComponents.Add(*It);
+		}
+	}
+	
+	if(TargetCubeComponents.Num() == 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Get 0 TargetCubeComponent!"));
+		return;
+	}
+	Test::Shuffle(TargetCubeComponents);
+	for(int32 i = 0; i < ImportantCubeCount; i++)
+	{
+		TargetCubeComponents[i]->SetImportant();
+		// Set Important Cube Red Color to Recognize
+		UStaticMeshComponent* StaticMeshComponent = TargetCubeComponents[i]->GetOwner()->GetComponentByClass<UStaticMeshComponent>();
+		if(!StaticMeshComponent || !StaticMeshComponent->GetMaterial(0))
+		{
+			return;
+		}
+		UMaterialInstanceDynamic* DynamicMaterial = StaticMeshComponent->CreateAndSetMaterialInstanceDynamic(0);
+		if(DynamicMaterial)
+		{
+			DynamicMaterial->SetVectorParameterValue(TEXT("BaseColor"), FLinearColor::Red);
 		}
 	}
 }

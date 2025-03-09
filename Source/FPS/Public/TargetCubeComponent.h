@@ -17,6 +17,7 @@ public:
 	UTargetCubeComponent();
 	void TakeHit();
 	int32 GetHitScore() const;
+	void SetImportant();
 
 protected:
 	// Called when the game starts

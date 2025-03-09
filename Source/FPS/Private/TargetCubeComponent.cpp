@@ -31,6 +31,11 @@ int32 UTargetCubeComponent::GetHitScore() const
 	return bImportant ? HitScore * 2 : HitScore;
 }
 
+void UTargetCubeComponent::SetImportant()
+{
+	bImportant = true;
+}
+
 
 // Called when the game starts
 void UTargetCubeComponent::BeginPlay()

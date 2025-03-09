@@ -16,6 +16,7 @@ public:
 	// Sets default values for this component's properties
 	UTargetCubeComponent();
 	void TakeHit();
+	int32 GetHitScore() const;
 
 protected:
 	// Called when the game starts
@@ -26,5 +27,7 @@ private:
 	uint8 bImportant:1;
 	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "1.0"))
 	float HitScaleFactor;
+	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.0"))
+	int32 HitScore;
 	
 };

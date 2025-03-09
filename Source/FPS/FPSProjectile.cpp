@@ -2,6 +2,7 @@
 
 #include "FPSProjectile.h"
 
+#include "FPSGameStateBase.h"
 #include "TargetCubeComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
@@ -41,6 +42,10 @@ void AFPSProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPr
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		if(UTargetCubeComponent* TargetCubeComponent = OtherActor->GetComponentByClass<UTargetCubeComponent>())
 		{
+			if(AFPSGameStateBase* GameState = GetWorld()->GetGameState<AFPSGameStateBase>())
+			{
+				GameState->SetScore(GameState->GetScore() + TargetCubeComponent->GetHitScore());
+			}
 			TargetCubeComponent->TakeHit();
 		}
 		Destroy();

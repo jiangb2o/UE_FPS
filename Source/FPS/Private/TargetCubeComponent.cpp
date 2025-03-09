@@ -20,6 +20,11 @@ void UTargetCubeComponent::TakeHit()
 	}
 }
 
+int32 UTargetCubeComponent::GetHitScore() const
+{
+	return bImportant ? HitScore * 2 : HitScore;
+}
+
 
 // Called when the game starts
 void UTargetCubeComponent::BeginPlay()

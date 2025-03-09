@@ -25,6 +25,8 @@ protected:
 private:
 	UPROPERTY(VisibleAnywhere)
 	uint8 bImportant:1;
+	UPROPERTY(VisibleAnywhere)
+	uint8 bHit:1;			/* If bHit, destroy this actor after take next hit */
 	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.1", ClampMax = "1.0"))
 	float HitScaleFactor;
 	UPROPERTY(EditAnywhere, meta = (ClampMin = "0.0"))

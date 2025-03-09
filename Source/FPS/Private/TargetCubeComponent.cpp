@@ -14,6 +14,12 @@ void UTargetCubeComponent::TakeHit()
 {
 	if(AActor* Owner = GetOwner())
 	{
+		if(bHit == true)
+		{
+			Owner->Destroy();
+			return;
+		} 
+		bHit = true;
 		FVector CurrentScale = Owner->GetActorScale();
 		CurrentScale *= HitScaleFactor;
 		Owner->SetActorScale3D(CurrentScale);

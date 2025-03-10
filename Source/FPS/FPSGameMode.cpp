@@ -68,7 +68,7 @@ void AFPSGameMode::SetImportantCubeTarget()
 		UStaticMeshComponent* StaticMeshComponent = TargetCubeComponents[i]->GetOwner()->GetComponentByClass<UStaticMeshComponent>();
 		if(!StaticMeshComponent || !StaticMeshComponent->GetMaterial(0))
 		{
-			return;
+			continue;
 		}
 		UMaterialInstanceDynamic* DynamicMaterial = StaticMeshComponent->CreateAndSetMaterialInstanceDynamic(0);
 		if(DynamicMaterial)

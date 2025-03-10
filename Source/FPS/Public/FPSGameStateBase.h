@@ -27,6 +27,8 @@ public:
 	float GetRemainingTime() const;
 	UFUNCTION(BlueprintCallable, Category = "GameState")
 	void SetRemainingTime(float Value);
+	UFUNCTION(BlueprintCallable, Category = "GameState")
+	void PrintScoreToScreen() const;
 
 	/** Get Values Set in Blueprint, Call in BeginPlay */
 	void InitValuesInBluePrint();

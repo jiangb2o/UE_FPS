@@ -31,10 +31,22 @@ void ULoginUserWidget::OnLoginButtonClick()
 	{
 		StatusString = TEXT("UserName or Password Error!");
 		StatusTextColor = FColor::Red;
+		// clean text box
+		PasswordTextBox->SetText(FText::FromString(""));
 	}
 	StatusText->SetVisibility(ESlateVisibility::Visible);
 	StatusText->SetText(FText::FromString(StatusString));
 	StatusText->SetColorAndOpacity(StatusTextColor);
+	
+	FTimerManager& TimerManager = GetWorld()->GetTimerManager();
+	// has timer, then clean
+	if(TimerManager.IsTimerActive(StatusTextCleanTimerHandle))
+	{
+		TimerManager.ClearTimer(StatusTextCleanTimerHandle);
+	}
+	// set new timer to clean status text
+	TimerManager.SetTimer(StatusTextCleanTimerHandle, this, &ULoginUserWidget::CleanStatusText, 3,
+	                                       false);
 }
 
 bool ULoginUserWidget::Validate() const
@@ -51,4 +63,12 @@ bool ULoginUserWidget::Validate() const
 		return true;
 	}
 	return false;
+}
+
+void ULoginUserWidget::CleanStatusText()
+{
+	if(StatusText)
+	{
+		StatusText->SetText(FText::FromString(""));
+	}
 }

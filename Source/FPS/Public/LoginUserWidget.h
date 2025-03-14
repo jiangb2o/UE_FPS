@@ -28,8 +28,14 @@ private:
 	UFUNCTION()
 	bool Validate() const;
 
+	/** Hide Status Text by clean */
+	UFUNCTION()
+	void CleanStatusText();
+
 	FString DefaultUserName = "bo";
 	FString DefaultPassword = "123";
+
+	FTimerHandle StatusTextCleanTimerHandle;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, meta = (BindWidget))
